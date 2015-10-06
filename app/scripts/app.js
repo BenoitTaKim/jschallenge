@@ -10,4 +10,5 @@
  */
 angular
 
-.module('jschallengeApp', []);
+    .module('jschallengeApp', ['ngRoute', 'ngResource']);
+

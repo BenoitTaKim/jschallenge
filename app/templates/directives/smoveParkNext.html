@@ -1,0 +1,7 @@
+<div class="cell-park-next" ng-show="check_other_timeslot==true">
+  <div ng-repeat="n in nexts">
+    <p><label class="label label-info">H+{{n.timeSlotH}}: </label><label class="label lbl-car"
+				 ng-class="{false:'label-danger', true:'label-primary'}[n.cars_available>0]">
+	Available cars: {{n.cars_available}}</label></p>
+  </div>
+</div>

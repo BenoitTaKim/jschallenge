@@ -1,0 +1,37 @@
+<div class="instructions">
+  <h1>Cars Parks</h1>
+  <p class="alert alert-info"><strong>See our park at a glance!</strong><br>Choose your places by removing the other ones.
+    Not sure about the location? Use the Maps button to get a view of the neighborhood!<br>You are not ready yet to book right now? Check the next time slots availability as well!</p>
+</div>
+
+<div class="row cell-parks">
+  <div class="col-sm-4 cell-park" ng-mouseenter="hover_cellpark=true"
+       ng-mouseleave="hover_cellpark=false"
+       ng-class="{true:'', false:'noavail'}[cellpark_display]"
+       ng-show="cellpark_display===true"
+       ng-repeat="park in parks">
+    <div class="panel panel-default" ng-class="{true:'panel-primary', false:'panel-default'}[hover_cellpark]">
+      <div class="panel-heading">
+	<h2 id="park_{{park.id}}">{{park.parking_shortname}}</h2>
+      </div>
+      <div class="panel-body">
+	<a title="Map" ng-href="https://www.google.com/maps/@{{park.latitude}},{{park.longitude}},{{park.zoom}}z"><img class="iconize pop" src="images/Apps-Google-Maps-icon.png" alt="Map"></a>
+	<small>{{park.parking_name}}</small>
+	<div class="labels">
+	  <p class="label lbl-car" ng-class="{false:'label-danger', true:'label-primary'}[park.cars_available>0]">Available cars: {{park.cars_available}}</p>
+	  <p class="label lbl-surge" ng-class="{true:'label-warning', false:'label-success'}[park.is_surge]">{{ (park.is_surge)?'':'No ' }}Surge</p>
+	</div>
+	
+	<a class="del-cell-park" ng-class="{true:'avail', false:''}[hover_cellpark]" ng-click="cellpark_display=false;">X</a>
+	<div class="fleet_category" ng-show="(park.cars_available>0)&&(!park.fleet_category.deleted)">
+	  <p class="label label-info">{{ (park.fleet_category.required_licence)?"License needed":"No license required" }} <span class="badge">{{ park.fleet_category.required_age }}</span></p>
+	  <small>{{ park.fleet_category.remarks }}</small>
+	</div>
+	
+	<a class="a-option" ng-class="{true:'avail', false:''}[(hover_cellpark&&!check_other_timeslot)]" ng-click="check_other_timeslot=true;" ng-show="!check_other_timeslot">Check for next time slots</a>
+	<smove-park-next data-parkid="{{park.id}}" ></smove-park-next>
+      </div>
+    </div>
+    
+  </div>
+</div>
